@@ -1,7 +1,11 @@
 import express from "express";
-import { SerialPort } from "serialport";
+import { ReadlineParser, SerialPort } from "serialport";
+import cors from "cors";
 
 const app = express();
+
+app.use(cors());
+app.use(express.json());
 
 // (async () => {
 //     const list = await SerialPort.list();
@@ -12,17 +16,31 @@ const arduino = new SerialPort({
     baudRate: 9600,
     path: "COM4",
 });
+const parser = arduino.pipe(new ReadlineParser());
 
 arduino.on("open", function () {
     console.log("[Arduino] Serial Port opened");
 });
 
-app.get("/", async (req, res) => {
-    arduino.write("Hallo");
+parser.on("data", function (data) {
+    data = data.trim();
+
+    if (data == "Finished") {
+        arduino.emit("finished", { finished: true });
+    }
 });
 
-app.post("/", async (req, res) => {
+app.get("/water", (req, res) => {
+    const { percentage } = req.query;
 
+    arduino.write(percentage as string);
+    console.log(`Sending percentage of ${percentage}%`);
+
+    arduino.once("finished", () => {
+        res.json({
+            finished: true,
+        })
+    });
 });
 
 const PORT = 8000;

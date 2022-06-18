@@ -10,6 +10,19 @@ export default function App () {
 	const [water, setWater] = useState(50);
 	const [fillScreen, setFillScreen] = useState(false);
 
+	async function fillUp () {
+		console.log("hi");
+		
+		setFillScreen(true);
+
+		const response = await fetch(`http://10.0.0.102:8000/water?percentage=${water}`);		
+		const json = await response.json();
+
+		if (json.finished) {
+			setFillScreen(false);
+		}
+	}
+
 	return (
 		<>
 
@@ -46,7 +59,7 @@ export default function App () {
 					<div className="arrow"></div>
 				</div>
 
-				<button onClick={() => setFillScreen(true)}>Auffüllen</button>
+				<button onClick={() => fillUp()}>Auffüllen</button>
 			</div>
 
 			<input id="water-range" type="range" min="0" max="100" step="1"
@@ -57,7 +70,7 @@ export default function App () {
 				{water}%
 			</p>
 
-			{ fillScreen && <FillScreen hideFullScreen={() => setFillScreen(false)} /> }
+			{ fillScreen && <FillScreen /> }
 		</>
 	);
 }

@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 
-export default function FillScreen ({ hideFullScreen }: { hideFullScreen: () => void }) {
+export default function FillScreen () {
     const [dot, setDot] = useState("...");
 
     useEffect(() => {
         document.body.classList.add("fillScreenOpen");
+
+        return () => {
+            document.body.classList.remove("fillScreenOpen");
+        }
     }, []);
 
     useEffect(() => {
@@ -15,9 +19,7 @@ export default function FillScreen ({ hideFullScreen }: { hideFullScreen: () => 
                 setDot("..");
             } else if (dot === "..") {
                 setDot("...");
-                hideFullScreen();
-        document.body.classList.add("fillScreenOpen");
-    }
+            }
         }, 500);
 
         // return () => {
