@@ -132,6 +132,10 @@ p {
         font-weight: bold;
         padding: 8px 14px;
         border-radius: 6px;
+
+        &:disabled {
+            background-color: #7fbfff;
+        }
     }
 }
 
@@ -173,7 +177,8 @@ p {
 }
 
 
-.fillScreen {
+.fillScreen,
+.enjoyDrinkScreen {
     position: fixed;
     top: 0;
     left: 0;
@@ -187,6 +192,7 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     color: #fff;
 }
 
