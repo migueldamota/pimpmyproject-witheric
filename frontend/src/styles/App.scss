@@ -29,6 +29,7 @@ a, article, b, body, button, div, footer, form, h1, h2, h3, h4, h5, h6, header, 
 }
 
 body {
+    user-select: none;
     background-color: #fff;
     font-family: "Gotham";
     height: 100vh;
