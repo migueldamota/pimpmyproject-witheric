@@ -24,6 +24,8 @@ arduino.on("open", function () {
 
 parser.on("data", function (data) {
     data = data.trim();
+    
+    console.log(data);
 
     if (data == "Finished") {
         arduino.emit("finished", { finished: true });
