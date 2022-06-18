@@ -1,0 +1,246 @@
+@font-face {
+    font-family: "Gotham";
+    font-weight: 400;
+    src: url("/assets/Gotham-Light.otf");
+}
+
+@font-face {
+    font-family: "Gotham";
+    font-weight: 700;
+    src: url("/assets/Gotham-Bold.otf");
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+:focus {
+    outline: none;
+}
+
+a, article, b, body, button, div, footer, form, h1, h2, h3, h4, h5, h6, header, html, i, input, li, ol, p, section, select, span, strong, textarea, u, ul {
+    background: 0;
+    border: 0;
+    font-family: inherit;
+    font-size: 100%;
+    font-style: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #fff;
+    font-family: "Gotham";
+    height: 100vh;
+    overflow: hidden;
+}
+
+input {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(270deg);
+    appearance: none;
+    border-radius: 6px;
+
+    width: 250px;
+    height: 120px;
+    background-color: #eee;
+    overflow: hidden;
+
+    &::-webkit-slider-thumb {
+        appearance: none;
+        background-color: #ddd;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+        width: 18px;
+        height: 120px;
+        box-shadow: -100vw 0 0 100vw dodgerblue;
+    }
+}
+
+.fullScreen {
+    font-size: 22px;
+    margin: 18px;
+}
+
+p {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+
+    span {
+        display: block;
+        font-weight: normal;
+        font-size: 18px;
+    }
+}
+
+.logo {
+    z-index: 100;;
+    font-size: 32px;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+}
+
+
+.left {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    font-size: 28px;
+
+    display: flex;
+    flex-direction: column;
+
+    h4 {
+        font-size: 24px;
+        font-weight: normal;
+    }
+
+    h2 {
+        font-size: 32px;
+        font-weight: bold;
+        padding-bottom: 6px;
+        border-bottom: 4px solid dodgerblue;
+        font-style: italic;
+    }
+}
+
+
+.right {
+    position: absolute;
+    top: 50%;
+    right: 80px;
+    transform: translateY(-50%);
+
+    display: flex;
+    flex-direction: column;
+
+    button {
+        background-color: dodgerblue;
+        color: #fff;
+        font-size: 22px;
+        font-weight: bold;
+        padding: 8px 14px;
+        border-radius: 6px;
+    }
+}
+
+
+.arrows {
+    display: flex;
+    margin-bottom: 18px;
+    align-items: center;
+    justify-content: center;
+
+    .arrow {
+        display: inline-block;
+        border-top: 3px solid #aaa;
+        border-right: 3px solid #aaa;
+        width: 24px;
+        height: 24px;
+        transform: translateY(-20px) rotate(135deg);
+        margin: 0 8px;
+
+        animation: arrow 2s infinite ease;
+    }
+}
+
+@keyframes arrow {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px) rotate(135deg);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(0) rotate(135deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(0) rotate(135deg);
+    }
+}
+
+
+.fillScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: dodgerblue;
+
+    font-size: 48px;
+    font-weight: bold;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+
+
+.bubbles {
+    z-index: -1;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    .bubble {
+        position: absolute;
+        top: 100%;
+        left: 25%;
+        background-color: #eee;
+        border-radius: 50%;
+        width: var(--size);
+        height: var(--size);
+        animation: bubble 10s linear alternate var(--delay),
+                    bubbleWiggle 5s infinite ease var(--delay);
+
+        &::before {
+            content: "";
+
+            position: absolute;
+            top: 15%;
+            right: 20%;
+            width: 15%;
+            height: 30%;
+            background-color: #fff;
+            border-radius: 50px;
+            transform: rotate(-20deg);
+        }
+    }
+}
+
+@keyframes bubble {
+    from {
+        top: 100%
+    }
+
+    to {
+        top: -100%;
+    }
+}
+
+@keyframes bubbleWiggle {
+    0%, 100% {
+        transform: translateX(-12px);
+    }
+
+    50% {
+        transform: translateX(12px);
+    }
+}

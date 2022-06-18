@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "module": "CommonJS",
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
+    "moduleResolution": "Node",
+    "outDir": "build"
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
