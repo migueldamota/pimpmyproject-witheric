@@ -15,7 +15,7 @@ export default function App () {
 		
 		setFillScreen(true);
 
-		const response = await fetch(`http://10.0.0.102:8000/water?percentage=${water}`);		
+		const response = await fetch(`http://localhost:8000/water?percentage=${water}`);		
 		const json = await response.json();
 
 		if (json.finished) {

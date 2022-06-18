@@ -14,7 +14,7 @@ app.use(express.json());
 
 const arduino = new SerialPort({
     baudRate: 9600,
-    path: "COM4",
+    path: "/dev/ttyACM0",
 });
 const parser = arduino.pipe(new ReadlineParser());
 
