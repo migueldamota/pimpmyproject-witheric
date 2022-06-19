@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
+import useTranslation from "../hook/useTranslation";
+import Bubble from "./Bubble";
 
-export default function FillScreen () {
+import styles from "./styles/FillScreen.module.scss";
+
+export default function FillScreen ({ water }: { water: number }) {
+    const { translate } = useTranslation();
     const [dot, setDot] = useState("...");
 
     useEffect(() => {
@@ -25,11 +30,15 @@ export default function FillScreen () {
         // return () => {
         //     setDot("...");
         // }
-    }, [dot]); 
+    }, [dot]);
 
     return (
-        <div className="fillScreen">
-            <h3>Filling up{dot}</h3>
+        <div className={styles.fillScreen}>
+            <h3>{ translate("fill_screen.text") }{dot}</h3>
+
+            <div className={styles.bubbles}>
+				{ Array.from({ length: water }, (e, i) => <Bubble time={20} key={i} />) }
+			</div>
         </div>
     )
 }

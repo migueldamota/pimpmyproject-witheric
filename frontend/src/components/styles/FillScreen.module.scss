@@ -1,0 +1,31 @@
+.fillScreen {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: dodgerblue;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #fff;
+
+    h3 {
+        display: block;
+        z-index: 100;
+        position: relative;
+
+        font-size: 48px;
+        font-weight: bold;
+    }
+}
+
+.bubbles {
+    div {
+        background-color: #90c7ff;
+        opacity: .5;
+    }
+}
