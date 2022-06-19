@@ -20,7 +20,7 @@ export default function App () {
 	const [enjoyDrinkScreen, setEnjoyDrinkScreen] = useState(false);
 
 	const [filling, setFilling] = useState(false);
-	const [fillScreen, setFillScreen] = useState(true);
+	const [fillScreen, setFillScreen] = useState(false);
 
 	async function fillUp () {
 		setFillDisabled(true);
