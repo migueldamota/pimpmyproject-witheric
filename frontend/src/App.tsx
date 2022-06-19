@@ -15,7 +15,7 @@ export default function App () {
 	const [fillDisabled, setFillDisabled] = useState(false);
 	const [water, setWater] = useState(50);
 
-	const [bubbles] = useState(Array.from({ length: 30 }, (e, i) => <Bubble key={i} />));
+	const [bubbles] = useState(Array.from({ length: 50 }, (e, i) => <Bubble key={i} />));
 
 	const [enjoyDrinkScreen, setEnjoyDrinkScreen] = useState(false);
 
@@ -75,13 +75,22 @@ export default function App () {
 				<button onClick={() => fillUp()} disabled={fillDisabled}>{ filling ? translate("fill_screen.text") : translate("fill_up") }</button>
 			</div>
 
-			<input id="water-range" type="range" min="0" max="100" step="1"
-				value={water}
-				onChange={(event) => setWater(Number(event.target.value))} />
-			<p>
-				<span>{ translate("water") }</span>
-				{water}%
-			</p>
+			<div className="waterInput">
+				<input id="water-range" type="range" min="0" max="100" step="1"
+					value={water}
+					onChange={(event) => setWater(Number(event.target.value))} />
+
+				<div className="waterDrag">
+					<div className="up" />
+					<span>Drag</span>
+					<div className="down" />
+				</div>
+
+				<p className="waterLevel">
+					<span>{ translate("water") }</span>
+					{water}%
+				</p>
+			</div>
 
 			<select onChange={(event) => setLanguage(event.target.value)} defaultValue={language}>
 				<option value="de">Deutsch</option>

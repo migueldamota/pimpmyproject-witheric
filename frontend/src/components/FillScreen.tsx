@@ -16,12 +16,10 @@ export default function FillScreen ({ water, hideScreen }: Props) {
     const [dot, setDot] = useState("...");
 
     useEffect(() => {
-        document.body.classList.add("fillScreenOpen");
-        document.body.classList.add("gradientShow");
+        document.body.classList.add("fillScreenOpen", "gradientShow");
 
         return () => {
-            document.body.classList.remove("fillScreenOpen");
-            document.body.classList.remove("gradientShow");
+            document.body.classList.remove("fillScreenOpen", "gradientShow");
         }
     }, []);
 

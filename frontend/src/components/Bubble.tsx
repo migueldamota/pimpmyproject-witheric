@@ -14,14 +14,14 @@ export default function Bubble ({ time }: Props) {
         const element = ref.current;
         if (!element) return;
 
-        resetBubble(element);
+        resetBubble(element, true);
 
         element.addEventListener("animationend", () => {
             resetBubble(element);
         });
     }, []);
 
-    function resetBubble (element: HTMLDivElement) {
+    function resetBubble (element: HTMLDivElement, first?: boolean) {
         element.classList.remove(styles.bubbleAnimation);
 
         setTimeout(() => {
@@ -29,10 +29,12 @@ export default function Bubble ({ time }: Props) {
         }, 10);
 
         element.style.left = `${Math.random() * 100}%`;
-        element.style.setProperty("--size", `${((Math.random() * 48) + 18)|0}px`);
-        element.style.setProperty("--delay", `${((Math.random() * 8) + 2).toFixed(2)}s`);
+        element.style.setProperty("--size", `${((Math.random() * 40) + 20)|0}px`);
         element.style.setProperty("--speed", `${time ?? 10}s`);
 
+        if (first) {
+            element.style.setProperty("--delay", `${((Math.random() * 8)).toFixed(2)}s`);
+        }
     }
 
     return <div ref={ref} className={styles.bubble} />;
