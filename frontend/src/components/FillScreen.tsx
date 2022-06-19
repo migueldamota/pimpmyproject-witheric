@@ -1,18 +1,27 @@
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import useTranslation from "../hook/useTranslation";
 import Bubble from "./Bubble";
 
-import styles from "./styles/FillScreen.module.scss";
+import styles from "./styles/Screen.module.scss";
 
-export default function FillScreen ({ water }: { water: number }) {
+interface Props {
+    water: number
+    hideScreen: () => void
+}
+
+export default function FillScreen ({ water, hideScreen }: Props) {
     const { translate } = useTranslation();
     const [dot, setDot] = useState("...");
 
     useEffect(() => {
         document.body.classList.add("fillScreenOpen");
+        document.body.classList.add("gradientShow");
 
         return () => {
             document.body.classList.remove("fillScreenOpen");
+            document.body.classList.remove("gradientShow");
         }
     }, []);
 
@@ -26,15 +35,16 @@ export default function FillScreen ({ water }: { water: number }) {
                 setDot("...");
             }
         }, 500);
-
-        // return () => {
-        //     setDot("...");
-        // }
     }, [dot]);
 
     return (
-        <div className={styles.fillScreen}>
-            <h3>{ translate("fill_screen.text") }{dot}</h3>
+        <div className={styles.screen}>
+            <button className={styles.close}
+                onClick={() => hideScreen()}>
+                <FontAwesomeIcon icon={faTimes} />
+            </button>
+
+            <h2>{ translate("fill_screen.text") }{dot}</h2>
 
             <div className={styles.bubbles}>
 				{ Array.from({ length: water }, (e, i) => <Bubble time={20} key={i} />) }

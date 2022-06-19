@@ -18,6 +18,13 @@
     outline: none;
 }
 
+:root {
+    --gap: 24px;
+    --gap-quarter: calc(var(--gap) / 4);
+    --gap-half: calc(var(--gap) / 2);
+    --gap-double: calc(var(--gap) * 2);
+}
+
 a, article, b, body, button, div, footer, form, h1, h2, h3, h4, h5, h6, header, html, i, input, li, ol, p, section, select, span, strong, textarea, u, ul {
     background: 0;
     border: 0;
@@ -34,6 +41,18 @@ body {
     font-family: "Gotham";
     height: 100vh;
     overflow: hidden;
+}
+
+.fillScreenOpen .gradient,
+.ejdScreenOpen .gradient {
+    position: fixed;
+    top: calc(var(--gap) * -1);
+    left: calc(var(--gap) * -1);
+    right: calc(var(--gap) * -1);
+    bottom: calc(var(--gap) * -1);
+    z-index: 99;
+    background-color: rgba(0, 0, 0, .75);
+    backdrop-filter: blur(5px);
 }
 
 input {
@@ -61,7 +80,7 @@ input {
 
 .fullScreen {
     font-size: 22px;
-    margin: 18px;
+    margin: var(--gap);
 }
 
 p {
@@ -84,7 +103,7 @@ p {
     z-index: 100;;
     font-size: 32px;
     position: absolute;
-    top: 30px;
+    top: var(--gap);
     left: 50%;
     transform: translateX(-50%);
     font-weight: bold;
@@ -99,7 +118,7 @@ p {
 .left {
     position: absolute;
     top: 50%;
-    left: 20px;
+    left: var(--gap);
     transform: translateY(-50%);
     font-size: 28px;
 
@@ -124,7 +143,7 @@ p {
 .right {
     position: absolute;
     top: 50%;
-    right: 80px;
+    right: var(--gap-double);
     transform: translateY(-50%);
 
     display: flex;
@@ -146,8 +165,10 @@ p {
 
 
 .arrows {
+    position: absolute;
+    top: -36px;
+    width: 100%;
     display: flex;
-    margin-bottom: 18px;
     align-items: center;
     justify-content: center;
 
@@ -193,11 +214,12 @@ p {
 
 
 select {
-    background-color: #fff;
+    background-color: #f3f3f3;
     position: absolute;
+    font-weight: bold;
     left: 18px;
     bottom: 18px;
-    border: 1px solid #eee;
     border-radius: 4px;
-    padding: 6px 8px;
+    padding: 8px;
+    font-size: 14px;
 }

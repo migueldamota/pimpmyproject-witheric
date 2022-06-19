@@ -8,6 +8,7 @@ import Bubble from "./components/Bubble";
 import useTranslation from "./hook/useTranslation";
 import EnjoyYourDrink from "./components/EnjoyYourDrink";
 
+let timeout: any = null;
 export default function App () {
 	const { translate, language, setLanguage } = useTranslation();
 
@@ -17,14 +18,17 @@ export default function App () {
 	const [bubbles] = useState(Array.from({ length: 30 }, (e, i) => <Bubble key={i} />));
 
 	const [enjoyDrinkScreen, setEnjoyDrinkScreen] = useState(false);
-	const [fillScreen, setFillScreen] = useState(false);
+
+	const [filling, setFilling] = useState(false);
+	const [fillScreen, setFillScreen] = useState(true);
 
 	async function fillUp () {
 		setFillDisabled(true);
 
 		setFillScreen(true);
+		setFilling(true);
 
-		await sleep(20000);
+		await sleep(10000);
 		// const response = await fetch(`http://localhost:8000/water?percentage=${water}`);
 		// const json = await response.json();
 		setFillDisabled(false);
@@ -32,8 +36,9 @@ export default function App () {
 		if (true) { //json.finished) {
 			setFillScreen(false);
 			setEnjoyDrinkScreen(true);
+			setFilling(false);
 
-			setTimeout(() => {
+			timeout = setTimeout(() => {
 				setEnjoyDrinkScreen(false);
 			}, 3000);
 		}
@@ -41,6 +46,7 @@ export default function App () {
 
 	return (
 		<>
+			<div className="gradient"></div>
 
 			<button className="fullScreen" onClick={() => fullscreen()}>
 				<FontAwesomeIcon icon={faExpand} />
@@ -61,12 +67,12 @@ export default function App () {
 
 			<div className="right">
 
-				<div className="arrows">
+				{ !filling && <div className="arrows">
 					<div className="arrow"></div>
 					<div className="arrow"></div>
-				</div>
+				</div> }
 
-				<button onClick={() => fillUp()} disabled={fillDisabled}>{ translate("fill_up") }</button>
+				<button onClick={() => fillUp()} disabled={fillDisabled}>{ filling ? translate("fill_screen.text") : translate("fill_up") }</button>
 			</div>
 
 			<input id="water-range" type="range" min="0" max="100" step="1"
@@ -82,8 +88,14 @@ export default function App () {
 				<option value="en">English</option>
 			</select>
 
-			{ fillScreen && <FillScreen water={water} /> }
-			{ enjoyDrinkScreen && <EnjoyYourDrink /> }
+			{ fillScreen && <FillScreen hideScreen={() => {
+				setFilling(false);
+				setFillScreen(false);
+			}} water={water} /> }
+			{ enjoyDrinkScreen && <EnjoyYourDrink hideScreen={() => {
+				clearTimeout(timeout);
+				setEnjoyDrinkScreen(false);
+			}} /> }
 		</>
 	);
 }

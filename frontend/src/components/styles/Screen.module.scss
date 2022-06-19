@@ -1,0 +1,55 @@
+.screen {
+    z-index: 100;
+    position: fixed;
+    top: var(--gap);
+    left: var(--gap);
+    right: var(--gap);
+    bottom: var(--gap);
+    background-color: dodgerblue;
+    border-radius: 8px;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #fff;
+
+    h2 {
+        display: block;
+        z-index: 100;
+        position: relative;
+
+        font-size: 48px;
+        font-weight: bold;
+    }
+
+    .close {
+        z-index: 100;
+        position: absolute;
+        top: calc(1.5 * var(--gap-half));
+        left: var(--gap);
+        color: #fff;
+        font-size: 24px;
+    }
+}
+
+.bubbles {
+    pointer-events: none;
+    div {
+        background-color: #90c7ff;
+        opacity: .25;
+    }
+}
+
+.cancelButton {
+    z-index: 100;
+    position: absolute;
+    bottom: var(--gap);
+    background-color: #fff;
+    font-weight: bold;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: var(--gap-quarter) var(--gap-half);
+    border-radius: 4px;
+}
