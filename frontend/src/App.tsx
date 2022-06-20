@@ -7,14 +7,16 @@ import { faExpand } from "@fortawesome/free-solid-svg-icons";
 import Bubble from "./components/Bubble";
 import useTranslation from "./hook/useTranslation";
 import EnjoyYourDrink from "./components/EnjoyYourDrink";
+import Input from "./components/Input";
+import { useDrinks } from "./hook/usePage";
 
 let timeout: any = null;
 export default function App () {
+	const { drinks } = useDrinks();
 	const [loading, setLoading] = useState(true);
 	const { translate, language, setLanguage } = useTranslation();
 
 	const [fillDisabled, setFillDisabled] = useState(false);
-	const [water, setWater] = useState(50);
 
 	const [bubbles] = useState(Array.from({ length: 50 }, (e, i) => <Bubble key={i} />));
 
@@ -29,12 +31,20 @@ export default function App () {
 		setFillScreen(true);
 		setFilling(true);
 
-		// await sleep(10000);
-		const response = await fetch(`http://localhost:8000/water?percentage=${water}`);
+		const response = await fetch(`http://localhost:8000/water`, {
+			method: "POST",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify({
+				water: drinks.Wasser,
+				cola: drinks.Cola,
+			}),
+		});
 		const json = await response.json();
 		setFillDisabled(false);
 
-		if (json.finished) {
+		if (true) {//json.finished) {
 			setFillScreen(false);
 			setEnjoyDrinkScreen(true);
 			setFilling(false);
@@ -70,12 +80,12 @@ export default function App () {
 
 			<h1 className="logo">HydroHomie</h1>
 
-			<div className="left">
+			{/* <div className="left">
 				<div>
 					<h4>{ translate("fill_your_drink") }</h4>
 					<h2>Hydro Drink!</h2>
 				</div>
-			</div>
+			</div> */}
 
 			<div className="right">
 
@@ -88,20 +98,23 @@ export default function App () {
 			</div>
 
 			<div className="waterInput">
-				<input id="water-range" type="range" min="10" max="100" step="1"
+				<Input name="Wasser" />
+				<Input name="Cola" background="#000" />
+
+				{/* <input id="water-range" type="range" min="10" max="100" step="1"
 					value={water}
 					onChange={(event) => setWater(Number(event.target.value))} />
-
-				<div className="waterDrag">
-					<div className="up" />
-					<span>Drag</span>
-					<div className="down" />
-				</div>
 
 				<p className="waterLevel">
 					<span>{ translate("water") }</span>
 					{water}%
-				</p>
+				</p> */}
+
+				<div className="waterDrag">
+					<div className="up" />
+					<span>Ziehen</span>
+					<div className="down" />
+				</div>
 			</div>
 
 			<select onChange={(event) => setLanguage(event.target.value)} defaultValue={language}>
@@ -112,7 +125,7 @@ export default function App () {
 			{ fillScreen && <FillScreen hideScreen={() => {
 				setFilling(false);
 				setFillScreen(false);
-			}} water={water} /> }
+			}} water={30} /> }
 			{ enjoyDrinkScreen && <EnjoyYourDrink hideScreen={() => {
 				clearTimeout(timeout);
 				setEnjoyDrinkScreen(false);

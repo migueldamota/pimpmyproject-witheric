@@ -32,16 +32,20 @@ parser.on("data", function (data) {
     }
 });
 
-app.get("/water", (req, res) => {
-    const { percentage } = req.query;
+app.post("/water", (req, res) => {
+    const { water, cola } = req.body;
 
-    arduino.write(percentage as string);
-    console.log(`Sending percentage of ${percentage}%`);
+    arduino.write(`${water},${cola}`);
+    console.log(`Sending Water: ${water}%`);
+    console.log(`Sending Cola: ${cola}%`);
+
+    console.log("");
+    console.log("");
 
     arduino.once("finished", () => {
         res.json({
             finished: true,
-        })
+        });
     });
 });
 

@@ -1,0 +1,25 @@
+.input {
+    display: block;
+
+    transform: rotate(-90deg);
+
+    input {
+        width: 250px;
+        height: 120px;
+    }
+
+    .level {
+        position: absolute;
+        left: -70px;
+        bottom: 50%;
+        
+        transform: translateY(50%) rotate(90deg);
+        text-align: center;
+
+        span {
+            font-size: 18px;
+            font-weight: bold;
+            display: block;
+        }
+    }
+}
