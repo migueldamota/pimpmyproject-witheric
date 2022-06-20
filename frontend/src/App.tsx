@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import FillScreen from "./components/FillScreen";
@@ -10,6 +10,7 @@ import EnjoyYourDrink from "./components/EnjoyYourDrink";
 
 let timeout: any = null;
 export default function App () {
+	const [loading, setLoading] = useState(true);
 	const { translate, language, setLanguage } = useTranslation();
 
 	const [fillDisabled, setFillDisabled] = useState(false);
@@ -28,20 +29,31 @@ export default function App () {
 		setFillScreen(true);
 		setFilling(true);
 
-		await sleep(10000);
-		// const response = await fetch(`http://localhost:8000/water?percentage=${water}`);
-		// const json = await response.json();
+		// await sleep(10000);
+		const response = await fetch(`http://localhost:8000/water?percentage=${water}`);
+		const json = await response.json();
 		setFillDisabled(false);
 
-		if (true) { //json.finished) {
+		if (json.finished) {
 			setFillScreen(false);
 			setEnjoyDrinkScreen(true);
 			setFilling(false);
 
-			timeout = setTimeout(() => {
-				setEnjoyDrinkScreen(false);
-			}, 3000);
+			timeout = setTimeout(() =>
+				setEnjoyDrinkScreen(false), 3000);
 		}
+	}
+
+	useEffect(() => {
+		setLoading(false);
+	}, []);
+
+	if (loading) {
+		return (
+			<div className="loading">
+				<h3>Starting...</h3>
+			</div>
+		);
 	}
 
 	return (
@@ -76,7 +88,7 @@ export default function App () {
 			</div>
 
 			<div className="waterInput">
-				<input id="water-range" type="range" min="0" max="100" step="1"
+				<input id="water-range" type="range" min="10" max="100" step="1"
 					value={water}
 					onChange={(event) => setWater(Number(event.target.value))} />
 

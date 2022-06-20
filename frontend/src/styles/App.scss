@@ -319,3 +319,14 @@ select {
     padding: 8px;
     font-size: 14px;
 }
+
+
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    font-size: 38px;
+}
